@@ -1,0 +1,9 @@
+Please add the following images to this directory:
+
+1. profile.jpg - Your profile picture (recommended size: 400x400px)
+2. affiliation1.png, affiliation2.png, affiliation3.png - Logos for your affiliations
+3. platform1.png, platform2.png, platform3.png - Logos for platforms you're on
+4. project1.jpg, project2.jpg, project3.jpg, project4.jpg - Images for your projects
+
+You can replace these with your actual images while keeping the same filenames,
+or update the image paths in the HTML files if you use different filenames. 
