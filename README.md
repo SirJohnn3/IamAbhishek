@@ -57,6 +57,7 @@ To add project images:
 
 This website is compatible with all modern browsers including:
 - Google Chrome
+- All devices
 - Mozilla Firefox
 - Safari
 - Microsoft Edge
@@ -67,4 +68,4 @@ This project is open-source and available for personal and educational use.
 
 ---
 
-Created by Abhishek Kumar | 2023 
+Created by Abhishek Kumar | 2025
