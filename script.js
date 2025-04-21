@@ -1,36 +1,37 @@
 // Wait for the DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
-    // Hamburger menu functionality
-    const hamburger = document.getElementById('hamburger-menu');
-    const nav = document.getElementById('nav-menu');
-    
-    if (hamburger) {
-        hamburger.addEventListener('click', function() {
-            nav.classList.toggle('active');
-            // Toggle hamburger icon
-            const icon = hamburger.querySelector('i');
-            if (icon.classList.contains('fa-bars')) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
-            } else {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-            }
-        });
-    }
-    
-    // Close menu when a menu item is clicked
-    const menuItems = document.querySelectorAll('#nav-menu ul li a');
-    menuItems.forEach(item => {
-        item.addEventListener('click', () => {
-            if (window.innerWidth <= 768) {
-                nav.classList.remove('active');
-                const icon = hamburger.querySelector('i');
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                window.scrollTo({
+                    top: target.offsetTop,
+                    behavior: 'smooth'
+                });
             }
         });
     });
+
+    // Check for saved dark mode preference
+    const darkMode = localStorage.getItem('darkMode');
+    if (darkMode === 'enabled') {
+        document.body.classList.add('dark-mode');
+    }
+
+    // Dark mode toggle functionality if it exists
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    if (darkModeToggle) {
+        darkModeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                localStorage.setItem('darkMode', null);
+            }
+        });
+    }
 
     // Handle the resume button click
     const resumeBtn = document.querySelector('.resume-btn');
@@ -41,24 +42,6 @@ document.addEventListener('DOMContentLoaded', function() {
             // window.location.href = 'assets/resume.pdf';
         });
     }
-
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
 
     // Add animation to elements when they come into view
     const observerOptions = {
@@ -125,45 +108,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
-
-    // Add dark mode toggle functionality
-    const createDarkModeToggle = () => {
-        const footer = document.querySelector('footer');
-        if (!footer) return;
-        
-        const darkModeContainer = document.createElement('div');
-        darkModeContainer.className = 'dark-mode-container';
-        
-        const darkModeToggle = document.createElement('button');
-        darkModeToggle.className = 'dark-mode-toggle';
-        darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-        darkModeToggle.setAttribute('title', 'Toggle Dark Mode');
-        
-        darkModeContainer.appendChild(darkModeToggle);
-        footer.appendChild(darkModeContainer);
-        
-        // Check for saved user preference
-        const currentTheme = localStorage.getItem('theme');
-        if (currentTheme === 'dark') {
-            document.body.classList.add('dark-mode');
-            darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-        }
-        
-        darkModeToggle.addEventListener('click', function() {
-            document.body.classList.toggle('dark-mode');
-            
-            // Save user preference
-            if (document.body.classList.contains('dark-mode')) {
-                localStorage.setItem('theme', 'dark');
-                this.innerHTML = '<i class="fas fa-sun"></i>';
-            } else {
-                localStorage.setItem('theme', 'light');
-                this.innerHTML = '<i class="fas fa-moon"></i>';
-            }
-        });
-    };
-    
-    createDarkModeToggle();
 
     // Add CSS for the new elements
     const addDynamicStyles = () => {
